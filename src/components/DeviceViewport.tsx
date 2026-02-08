@@ -1,10 +1,17 @@
 import { useEffect } from 'react';
-import { getPlatformOS } from '@apps-in-toss/web-framework';
+
+function getIsIOS(): boolean {
+  try {
+    const { getPlatformOS } = require('@apps-in-toss/web-framework');
+    return getPlatformOS() === 'ios';
+  } catch {
+    return false;
+  }
+}
 
 export function DeviceViewport() {
-  const isIOS = getPlatformOS() === 'ios';
-
   useEffect(() => {
+    const isIOS = getIsIOS();
     const styles: Record<string, string> = {
       '--min-height': `${window.innerHeight}px`,
     };

@@ -5,6 +5,7 @@ export const tarotCards: TarotCard[] = [
     id: 0,
     name: 'The Fool',
     nameKr: '광대',
+    romanNumeral: '0',
     emoji: '🃏',
     upright: {
       keyword: '새로운 시작',
@@ -20,11 +21,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '지금은 행동보다 관찰이 필요한 시기입니다. 서두르지 말고 한 번 더 생각해 보세요.',
     },
+    ritual: '오늘은 처음 가보는 길로 걸어보세요. 새로운 경로가 새로운 에너지를 불러옵니다.',
   },
   {
     id: 1,
     name: 'The Magician',
     nameKr: '마법사',
+    romanNumeral: 'I',
     emoji: '🪄',
     upright: {
       keyword: '창조와 의지',
@@ -40,11 +43,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '화려한 말보다 꾸준한 실천이 중요합니다. 기본기를 다시 점검해 보세요.',
     },
+    ritual: '양손을 비벼 따뜻하게 한 뒤 이마에 대고 오늘의 의도를 3번 말해보세요.',
   },
   {
     id: 2,
     name: 'The High Priestess',
     nameKr: '여사제',
+    romanNumeral: 'II',
     emoji: '🌙',
     upright: {
       keyword: '직감과 지혜',
@@ -60,11 +65,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '타인의 조언도 중요하지만, 최종 결정은 자신의 직감에 맡기세요.',
     },
+    ritual: '달빛이 닿는 곳에 물 한 잔을 두고 자기 전에 마셔보세요. 직감이 깨어납니다.',
   },
   {
     id: 3,
     name: 'The Empress',
     nameKr: '여황제',
+    romanNumeral: 'III',
     emoji: '👑',
     upright: {
       keyword: '풍요와 모성',
@@ -80,11 +87,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '베풂에도 균형이 필요합니다. 자신의 에너지를 소진하지 않도록 경계를 설정하세요.',
     },
+    ritual: '꽃이나 식물을 가까이 두세요. 자연의 에너지가 풍요를 끌어당깁니다.',
   },
   {
     id: 4,
     name: 'The Emperor',
     nameKr: '황제',
+    romanNumeral: 'IV',
     emoji: '🏛️',
     upright: {
       keyword: '권위와 안정',
@@ -100,11 +109,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '권위를 내세우기보다 경청하는 자세를 가져보세요. 부드러운 리더십이 더 큰 힘을 발휘합니다.',
     },
+    ritual: '오늘의 할 일 3가지를 종이에 적어보세요. 구조화된 의도가 힘을 줍니다.',
   },
   {
     id: 5,
     name: 'The Hierophant',
     nameKr: '교황',
+    romanNumeral: 'V',
     emoji: '📿',
     upright: {
       keyword: '전통과 가르침',
@@ -120,11 +131,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '남들이 정해놓은 규칙에 얽매이지 마세요. 자신만의 가치관을 정립할 시기입니다.',
     },
+    ritual: '존경하는 사람의 명언을 하나 찾아 소리 내어 읽어보세요.',
   },
   {
     id: 6,
     name: 'The Lovers',
     nameKr: '연인',
+    romanNumeral: 'VI',
     emoji: '💕',
     upright: {
       keyword: '사랑과 선택',
@@ -140,11 +153,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '일시적인 감정에 휩쓸리지 마세요. 장기적인 관점에서 관계를 바라보는 지혜가 필요합니다.',
     },
+    ritual: '소중한 사람에게 짧은 메시지를 보내세요. 사랑의 에너지가 순환합니다.',
   },
   {
     id: 7,
     name: 'The Chariot',
     nameKr: '전차',
+    romanNumeral: 'VII',
     emoji: '⚡',
     upright: {
       keyword: '승리와 전진',
@@ -160,11 +175,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '속도를 줄이고 방향을 재점검하세요. 올바른 길 위의 느린 걸음이 잘못된 길 위의 빠른 질주보다 낫습니다.',
     },
+    ritual: '양 주먹을 꽉 쥐고 5초간 힘을 준 뒤 천천히 풀어보세요. 의지가 충전됩니다.',
   },
   {
     id: 8,
     name: 'Strength',
     nameKr: '힘',
+    romanNumeral: 'VIII',
     emoji: '🦁',
     upright: {
       keyword: '내면의 힘',
@@ -180,11 +197,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '완벽하지 않아도 괜찮습니다. 자신의 약점을 인정하는 것이 진정한 용기의 시작입니다.',
     },
+    ritual: '가슴에 손을 얹고 깊게 3번 호흡하세요. 내면의 사자가 깨어납니다.',
   },
   {
     id: 9,
     name: 'The Hermit',
     nameKr: '은둔자',
+    romanNumeral: 'IX',
     emoji: '🏔️',
     upright: {
       keyword: '성찰과 탐구',
@@ -200,11 +219,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '혼자 모든 것을 해결하려 하지 마세요. 신뢰할 수 있는 사람에게 마음을 터놓아 보세요.',
     },
+    ritual: '5분 동안 눈을 감고 아무 소리 없이 앉아보세요. 고요 속에서 답이 옵니다.',
   },
   {
     id: 10,
     name: 'Wheel of Fortune',
     nameKr: '운명의 수레바퀴',
+    romanNumeral: 'X',
     emoji: '🎡',
     upright: {
       keyword: '행운과 전환',
@@ -220,11 +241,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '지금의 시련은 더 나은 미래를 위한 준비 과정입니다. 인내심을 가지고 때를 기다리세요.',
     },
+    ritual: '동전을 하나 집어 왼손에 쥐고 소원을 빌어보세요. 운명이 돌아갑니다.',
   },
   {
     id: 11,
     name: 'Justice',
     nameKr: '정의',
+    romanNumeral: 'XI',
     emoji: '⚖️',
     upright: {
       keyword: '공정과 균형',
@@ -240,11 +263,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '자신의 행동에 대한 책임을 받아들이세요. 객관적인 시각을 유지하려 노력해야 할 때입니다.',
     },
+    ritual: '오늘 내린 결정 하나를 떠올리고 반대 입장에서 생각해 보세요.',
   },
   {
     id: 12,
     name: 'The Hanged Man',
     nameKr: '매달린 사람',
+    romanNumeral: 'XII',
     emoji: '🔮',
     upright: {
       keyword: '희생과 새로운 시각',
@@ -260,11 +285,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '손해를 보면서까지 유지할 가치가 있는지 냉정하게 판단하세요. 때로는 포기도 지혜입니다.',
     },
+    ritual: '거꾸로 된 것을 하나 찾아보세요. 새 시각이 문제를 해결합니다.',
   },
   {
     id: 13,
     name: 'Death',
     nameKr: '죽음',
+    romanNumeral: 'XIII',
     emoji: '🦋',
     upright: {
       keyword: '변화와 재탄생',
@@ -280,11 +307,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '변화를 피할 수 없다면 즐기세요. 과거에 대한 미련을 내려놓으면 새로운 문이 열립니다.',
     },
+    ritual: '필요 없는 물건 하나를 정리하세요. 비움이 새로운 에너지를 부릅니다.',
   },
   {
     id: 14,
     name: 'Temperance',
     nameKr: '절제',
+    romanNumeral: 'XIV',
     emoji: '☯️',
     upright: {
       keyword: '조화와 균형',
@@ -300,11 +329,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '지금 당장 쉬어가세요. 모든 것에 적당히가 최고의 처방입니다.',
     },
+    ritual: '따뜻한 차 한 잔을 천천히 마시며 균형을 되찾아 보세요.',
   },
   {
     id: 15,
     name: 'The Devil',
     nameKr: '악마',
+    romanNumeral: 'XV',
     emoji: '⛓️',
     upright: {
       keyword: '속박과 유혹',
@@ -320,11 +351,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '해방의 과정은 힘들지만 포기하지 마세요. 자유를 향한 한 걸음 한 걸음이 모두 소중합니다.',
     },
+    ritual: '오늘 하루 SNS를 1시간 줄여보세요. 작은 해방이 큰 자유로 이어집니다.',
   },
   {
     id: 16,
     name: 'The Tower',
     nameKr: '탑',
+    romanNumeral: 'XVI',
     emoji: '🌩️',
     upright: {
       keyword: '급변과 파괴',
@@ -340,11 +373,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '불편한 진실을 외면하지 마세요. 지금 작은 변화를 선택하면 나중의 큰 충격을 피할 수 있습니다.',
     },
+    ritual: '책상 위 물건 배치를 바꿔보세요. 작은 파괴가 새로운 질서를 만듭니다.',
   },
   {
     id: 17,
     name: 'The Star',
     nameKr: '별',
+    romanNumeral: 'XVII',
     emoji: '⭐',
     upright: {
       keyword: '희망과 영감',
@@ -360,11 +395,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '포기하지 마세요. 작은 것에서도 감사함을 찾고, 하루하루 조금씩 나아가면 됩니다.',
     },
+    ritual: '밤하늘을 올려다보며 소원 하나를 빌어보세요. 별이 듣고 있습니다.',
   },
   {
     id: 18,
     name: 'The Moon',
     nameKr: '달',
+    romanNumeral: 'XVIII',
     emoji: '🌑',
     upright: {
       keyword: '환상과 불안',
@@ -380,11 +417,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '직감을 따르되, 이성적 판단도 함께하세요. 안개가 걷히고 있으니 조금만 더 기다려 보세요.',
     },
+    ritual: '잠들기 전 꿈 일기를 준비해 두세요. 무의식의 메시지가 도착합니다.',
   },
   {
     id: 19,
     name: 'The Sun',
     nameKr: '태양',
+    romanNumeral: 'XIX',
     emoji: '☀️',
     upright: {
       keyword: '기쁨과 성공',
@@ -400,11 +439,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '완벽한 결과에 집착하지 마세요. 작은 행복에서도 기쁨을 찾을 수 있습니다.',
     },
+    ritual: '햇빛 아래에서 5분만 걸어보세요. 태양의 에너지가 온몸에 충전됩니다.',
   },
   {
     id: 20,
     name: 'Judgement',
     nameKr: '심판',
+    romanNumeral: 'XX',
     emoji: '📯',
     upright: {
       keyword: '각성과 부활',
@@ -420,11 +461,13 @@ export const tarotCards: TarotCard[] = [
       advice:
         '과거는 이미 지나갔습니다. 자신을 용서하고 현재에 집중하세요. 새로운 기회는 언제든 옵니다.',
     },
+    ritual: '거울을 보며 자신에게 "잘하고 있어"라고 말해보세요.',
   },
   {
     id: 21,
     name: 'The World',
     nameKr: '세계',
+    romanNumeral: 'XXI',
     emoji: '🌍',
     upright: {
       keyword: '완성과 성취',
@@ -440,5 +483,6 @@ export const tarotCards: TarotCard[] = [
       advice:
         '완벽주의에 빠져 마무리를 미루지 마세요. 80%의 완성도로도 충분히 아름다운 결과입니다.',
     },
+    ritual: '오늘 이룬 작은 성취를 하나 적어보세요. 완성의 에너지가 쌓입니다.',
   },
 ];

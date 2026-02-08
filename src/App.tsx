@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { GoogleAdMob } from '@apps-in-toss/web-framework';
 import { Screen, TarotResult } from './types';
-import { getTarotFortune } from './utils/fortune-engine';
-import { saveTodayCard, hasPickedToday, getTodayCard } from './utils/storage';
-import { tarotCards } from './data/tarot-cards';
+import { getDailyCards, getCardReading, getDailyQuote } from './utils/fortune-engine';
+import { saveTodayCard, hasPickedToday, getTodayCard, getStreak } from './utils/storage';
+import { useInterstitialAd } from './hooks/useInterstitialAd';
 import { DeviceViewport } from './components/DeviceViewport';
-import TarotCard from './components/TarotCard';
+import HomeScreen from './components/HomeScreen';
+import FlipScreen from './components/FlipScreen';
 import ResultScreen from './components/ResultScreen';
 
 const AD_GROUP_ID = 'ait-ad-test-interstitial-id';
@@ -13,52 +13,31 @@ const AD_GROUP_ID = 'ait-ad-test-interstitial-id';
 const App: React.FC = () => {
   const [screen, setScreen] = useState<Screen>('home');
   const [result, setResult] = useState<TarotResult | null>(null);
-  const [flipped, setFlipped] = useState(false);
-  const [showResult, setShowResult] = useState(false);
-  const [adLoading, setAdLoading] = useState(false);
-  const [pickedToday, setPickedToday] = useState(false);
+  const [cardIds, setCardIds] = useState<number[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [streak, setStreak] = useState(0);
+  const [dailyQuote, setDailyQuote] = useState('');
   const [isReady, setIsReady] = useState(false);
 
-  // Check if user already picked today
+  const { loading: adLoading, showInterstitialAd } = useInterstitialAd(AD_GROUP_ID);
+
   useEffect(() => {
     const init = async () => {
-      const picked = await hasPickedToday();
-      setPickedToday(picked);
+      const cards = getDailyCards();
+      setCardIds(cards);
+      setDailyQuote(getDailyQuote());
 
+      const streakData = await getStreak();
+      setStreak(streakData.currentStreak);
+
+      const picked = await hasPickedToday();
       if (picked) {
-        // Restore today's card
         const todayCard = await getTodayCard();
         if (todayCard) {
-          const card = tarotCards.find(c => c.id === todayCard.cardId);
-          if (card) {
-            const reading = todayCard.isReversed ? card.reversed : card.upright;
-            const gradeScoreMap: Record<string, number> = { S: 95, A: 82, B: 68, C: 52, D: 38 };
-            const grade = todayCard.grade as TarotResult['grade'];
-            const baseScore = gradeScoreMap[grade];
-
-            setResult({
-              card,
-              isReversed: todayCard.isReversed,
-              grade,
-              keyword: reading.keyword,
-              description: reading.description,
-              advice: reading.advice,
-              scores: [
-                { label: '핵심 메시지', value: baseScore },
-                { label: '실현 가능성', value: Math.max(20, baseScore + Math.floor(Math.random() * 20 - 10)) },
-                { label: '에너지', value: Math.max(20, baseScore + Math.floor(Math.random() * 20 - 10)) },
-              ],
-              luckyItems: {
-                color: ['보라', '남색', '금색', '은색', '흰색'][card.id % 5],
-                number: (card.id * 3 + 7) % 45 + 1,
-                direction: ['동', '서', '남', '북'][card.id % 4],
-                time: ['오전 6시', '오전 10시', '오후 2시', '오후 6시', '오후 10시'][card.id % 5],
-              },
-            });
-            setFlipped(true);
-            setShowResult(true);
-            setScreen('result');
-          }
+          const reading = getCardReading(todayCard.cardId, todayCard.selectedIndex);
+          setResult(reading);
+          setSelectedIndex(todayCard.selectedIndex);
+          setScreen('result');
         }
       }
 
@@ -67,53 +46,50 @@ const App: React.FC = () => {
     init();
   }, []);
 
-  // Prepare the first draw
-  const prepareDraw = useCallback(() => {
-    const fortune = getTarotFortune();
-    setResult(fortune);
-    setFlipped(false);
-    setShowResult(false);
-    setScreen('home');
-  }, []);
+  const handleSelectCard = useCallback((index: number) => {
+    setSelectedIndex(index);
+    const cardId = cardIds[index];
+    const reading = getCardReading(cardId, index);
+    setResult(reading);
 
-  useEffect(() => {
-    if (isReady && !pickedToday && !result) {
-      prepareDraw();
-    }
-  }, [isReady, pickedToday, result, prepareDraw]);
-
-  const handleFlip = useCallback(async () => {
-    if (!result) return;
-    setFlipped(true);
-
-    // Save today's card
-    await saveTodayCard(result.card.id, result.isReversed, result.grade);
-    setPickedToday(true);
-
-    // Show result after flip animation completes
     setTimeout(() => {
-      setShowResult(true);
-      setScreen('result');
-    }, 1000);
-  }, [result]);
+      setScreen('flip');
+    }, 500);
+  }, [cardIds]);
 
-  const handleRetry = useCallback(async () => {
-    setAdLoading(true);
-    try {
-      await GoogleAdMob.showInterstitialAd({ adGroupId: AD_GROUP_ID });
-    } catch {}
-    setAdLoading(false);
+  const handleFlipComplete = useCallback(async () => {
+    if (!result) return;
+    await saveTodayCard(result.card.id, result.isReversed, selectedIndex ?? 0);
+    const streakData = await getStreak();
+    setStreak(streakData.currentStreak);
+    setScreen('result');
+  }, [result, selectedIndex]);
 
-    // Draw a new card
-    const fortune = getTarotFortune();
-    setResult(fortune);
-    setFlipped(false);
-    setShowResult(false);
-    setScreen('home');
+  const handleRetry = useCallback(() => {
+    showInterstitialAd({
+      onDismiss: () => {
+        setSelectedIndex(null);
+        setScreen('home');
 
-    // Save the new card
-    await saveTodayCard(fortune.card.id, fortune.isReversed, fortune.grade);
-  }, []);
+        const cards = getDailyCards();
+        setCardIds(cards);
+
+        setTimeout(() => {
+          const randomIdx = Math.floor(Math.random() * 5);
+          setSelectedIndex(randomIdx);
+          const cardId = cards[randomIdx];
+          const reading = getCardReading(cardId, randomIdx);
+          setResult(reading);
+
+          saveTodayCard(reading.card.id, reading.isReversed, randomIdx);
+
+          setTimeout(() => {
+            setScreen('flip');
+          }, 300);
+        }, 100);
+      },
+    });
+  }, [showInterstitialAd]);
 
   if (!isReady) {
     return (
@@ -140,11 +116,11 @@ const App: React.FC = () => {
               key={i}
               className={`star ${i % 5 === 0 ? 'large' : ''}`}
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                '--delay': `${Math.random() * 5}s`,
-                '--duration': `${2 + Math.random() * 4}s`,
-                '--max-opacity': `${0.3 + Math.random() * 0.7}`,
+                left: `${(i * 31.7 + 13) % 100}%`,
+                top: `${(i * 23.3 + 7) % 100}%`,
+                '--delay': `${(i * 0.7) % 5}s`,
+                '--duration': `${2 + (i * 0.9) % 4}s`,
+                '--max-opacity': `${0.3 + (i * 0.13) % 0.7}`,
               } as React.CSSProperties}
             />
           ))}
@@ -153,21 +129,27 @@ const App: React.FC = () => {
         {/* Header */}
         <header className="app-header">
           <h1 className="app-title">타로 한 장</h1>
-          <p className="app-subtitle">매일 한 장의 타로카드</p>
         </header>
 
-        {/* Main Content */}
+        {/* Screens */}
         {screen === 'home' && (
-          <div className="home-screen">
-            <TarotCard
-              result={result}
-              onFlip={handleFlip}
-              flipped={flipped}
-            />
-          </div>
+          <HomeScreen
+            streak={streak}
+            dailyQuote={dailyQuote}
+            cardIds={cardIds}
+            selectedIndex={selectedIndex}
+            onSelectCard={handleSelectCard}
+          />
         )}
 
-        {screen === 'result' && showResult && result && (
+        {screen === 'flip' && result && (
+          <FlipScreen
+            result={result}
+            onFlipComplete={handleFlipComplete}
+          />
+        )}
+
+        {screen === 'result' && result && (
           <ResultScreen
             result={result}
             onRetry={handleRetry}
