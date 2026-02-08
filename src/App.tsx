@@ -8,7 +8,7 @@ import HomeScreen from './components/HomeScreen';
 import FlipScreen from './components/FlipScreen';
 import ResultScreen from './components/ResultScreen';
 
-const AD_GROUP_ID = 'ait-ad-test-interstitial-id';
+const AD_GROUP_ID = 'ait.v2.live.580a8c6ef7e742b1';
 
 const App: React.FC = () => {
   const [screen, setScreen] = useState<Screen>('home');
