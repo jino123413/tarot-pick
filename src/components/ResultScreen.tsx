@@ -11,6 +11,9 @@ import {
   DirectionRibbon,
   RefreshIcon,
 } from './BrandIcons';
+import BannerAd from './BannerAd';
+
+const BANNER_AD_GROUP_ID = 'ait.v2.live.37e45a8e576948b2';
 
 /** 받침 유무로 "을/를" 선택 */
 function eulReul(word: string): string {
@@ -202,6 +205,10 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ result, onRetry, adLoading 
                 <span className="ad-badge">AD</span>
               </button>
               <p className="ad-notice">광고 시청 후 다른 카드를 뽑을 수 있습니다</p>
+            </div>
+
+            <div style={{ marginTop: 16, width: '100%' }}>
+              <BannerAd adGroupId={BANNER_AD_GROUP_ID} />
             </div>
           </div>
         </div>
